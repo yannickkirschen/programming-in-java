@@ -21,15 +21,23 @@ public class LectureCreateCommandLineParser implements NestedCommandLineParser<L
 
         Option id = Option.builder().argName("id").longOpt("id").desc("ID of the lecture").hasArg(true).build();
         Option title = Option.builder().argName("title").longOpt("title").desc("Title of the lecture").hasArg(true).build();
+        Option help = Option.builder().argName("help").longOpt("help").desc("Show help").hasArg(false).required(false).build();
 
         options.addOption(id);
         options.addOption(title);
+        options.addOption(help);
 
         CommandLine line;
         try {
             line = new DefaultParser().parse(options, args);
         } catch (ParseException e) {
             throw new CommandLineParseException(e);
+        }
+
+        if (line.hasOption("help")) {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("java -jar cli.jar create lecture", null, options, null, true);
+            System.exit(0);
         }
 
         LectureCreateArguments lecture = new LectureCreateArguments();
