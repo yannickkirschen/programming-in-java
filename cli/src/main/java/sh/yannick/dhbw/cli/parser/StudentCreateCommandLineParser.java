@@ -23,7 +23,7 @@ public class StudentCreateCommandLineParser implements NestedCommandLineParser<S
 
         Option id = Option.builder().argName("id").longOpt("id").desc("ID of the student").hasArg(true).build();
         Option name = Option.builder().argName("name").longOpt("name").desc("Name of the student").hasArg(true).build();
-        Option lectures = Option.builder().argName("lectures").longOpt("lectures").desc("IDs of lectures the student attends").hasArg(true).build();
+        Option lectures = Option.builder().argName("lectures").longOpt("lectures").desc("IDs of lectures the student attends").hasArgs().valueSeparator(',').build();
         Option help = Option.builder().argName("help").longOpt("help").desc("Show help").hasArg(false).required(false).build();
 
         options.addOption(id);

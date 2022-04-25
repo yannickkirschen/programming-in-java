@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import sh.yannick.dhbw.cli.model.args.LectureCreateArguments;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity(name = "LECTURE")
 @Getter
@@ -19,6 +19,10 @@ public class Lecture {
 
     @Column(name = "TITLE")
     private String title;
+
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "lectures")
+    private List<Student> students;
 
     public static Lecture from(LectureCreateArguments arguments) {
         Lecture lecture = new Lecture();

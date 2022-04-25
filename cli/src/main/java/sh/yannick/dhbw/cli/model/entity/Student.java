@@ -2,7 +2,6 @@ package sh.yannick.dhbw.cli.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.*;
 
 import java.util.List;
 
@@ -13,13 +12,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Student {
     @Id
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     private String id;
 
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(targetEntity = Lecture.class)
     @ToString.Exclude
-    @LazyCollection(value = LazyCollectionOption.FALSE)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "LECTURE_STUDENT")
     private List<Lecture> lectures;
 }
